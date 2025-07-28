@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AR Floating Multi-Browser</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-html-shader@1.0.0/dist/aframe-html-shader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system@4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/super-hands@3.0.2/dist/aframe-super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+      .webview {
+        width: 512px;
+        height: 384px;
+        background: white;
+        overflow: hidden;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .keyboard {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 2px;
+        width: 100%;
+        font-size: 14px;
+      }
+      .key {
+        background: #ccc;
+        text-align: center;
+        padding: 8px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene
+      physics="gravity: 0"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false"
+      vr-mode-ui="enabled: false"
+      renderer="logarithmicDepthBuffer: true"
+    >
+      <a-assets>
+        <div id="web1" class="webview">
+          <iframe src="https://google.com"></iframe>
+        </div>
+        <div id="web2" class="webview">
+          <iframe src="https://wikipedia.org"></iframe>
+        </div>
+        <div id="keyboard" class="webview keyboard">
+          <div class="key">Q</div><div class="key">W</div><div class="key">E</div><div class="key">R</div><div class="key">T</div><div class="key">Y</div><div class="key">U</div><div class="key">I</div><div class="key">O</div><div class="key">P</div>
+          <div class="key">A</div><div class="key">S</div><div class="key">D</div><div class="key">F</div><div class="key">G</div><div class="key">H</div><div class="key">J</div><div class="key">K</div><div class="key">L</div><div class="key">↵</div>
+          <div class="key">Z</div><div class="key">X</div><div class="key">C</div><div class="key">V</div><div class="key">B</div><div class="key">N</div><div class="key">M</div><div class="key">.</div><div class="key">@</div><div class="key">␣</div>
+        </div>
+      </a-assets><a-entity id="cameraRig" position="0 1.6 0">
+    <a-entity camera look-controls></a-entity>
+    <a-entity laser-controls="hand: left" super-hands></a-entity>
+    <a-entity laser-controls="hand: right" super-hands></a-entity>
+  </a-entity>
+
+  <a-entity id="browser1" position="-0.8 1.5 -2" geometry="primitive: plane; height: 0.9; width: 1.2" material="shader: html; target: #web1" class="grabbable draggable"></a-entity>
+  <a-entity id="browser2" position="0.8 1.5 -2" geometry="primitive: plane; height: 0.9; width: 1.2" material="shader: html; target: #web2" class="grabbable draggable"></a-entity>
+  <a-entity id="keyboardEntity" position="0 0.6 -1.5" geometry="primitive: plane; height: 0.5; width: 1.5" material="shader: html; target: #keyboard" class="grabbable draggable"></a-entity>
+</a-scene>
+
+  </body>
+</html>
